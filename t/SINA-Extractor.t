@@ -9,7 +9,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use FindBin qw($Bin);
-use Test::More tests => 5;
+use Test::More tests => 6;
 BEGIN { use_ok('SINA::Extractor') };
 
 #########################
@@ -28,6 +28,7 @@ print Dumper($result_hash);
 is $result_hash->{vp_value}, 'width=device-width, initial-scale=1', 'viewport meta values';
 is $result_hash->{charset}, 'utf-8', 'charset meta value';
 is $result_hash->{Title}, 'Thinking Insightfully.', 'title in html';
+is $result_hash->{favicon_url}, '/favicon.png', 'favicon url';
 ok 1, 'ok';
 print Dumper($result_hash);
 
