@@ -1,0 +1,6 @@
+Revision history for Perl extension SINA::Extractor.
+
+0.01  Thu May 30 15:35:30 2013
+	- original version; created by h2xs 1.23 with options
+		-XAn SINA::Extractor
+
