@@ -3,18 +3,11 @@ sina-extractor
 
 A universal web page parser and content extractor.
 
-INSTALLATION
-------------
+### USAGE
 
-To install this module type the following:
+For synopsis, check [the pod in the src code](https://github.com/BaiGang/sina-extractor/blob/master/lib/SINA/Extractor.pm#L160). You need a config file for specifying the fields or contents to extract.
 
-   perl Makefile.PL
-   make
-   make test
-   make install
-
-CONFIGURATION
--------------
+### CONFIGURATION
 
 Suppose we are dealing with web pages in a format like this:
 
@@ -46,8 +39,16 @@ Each line of the configure is a field we want to extract. (The function of extra
 
 The second line shows perl regular expressions are appliable in the filters. In the third configuration, a `NULL` indicates that there's no filter for extracting `title` and we want the `content` rather than a field (there's no `attr` prefix for `content`).
 
-LICENCE
--------
+### INSTALLATION
+
+To install this module type the following:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+### LICENCE
 
 Copyright (C) 2013 by Bai Gang
 
