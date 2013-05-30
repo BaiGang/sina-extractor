@@ -113,9 +113,30 @@ sub extract {
     );
    
     carp "Failed parsing for ".$conf->{label} unless @nodes;
- 
-    foreach (@nodes) {
-      my $node = $_;
+    if (scalar @nodes > 1) { 
+      $results{$conf->{label}} = [];
+      foreach (@nodes) {
+        my $node = $_;
+        if ($conf->{field} eq 'content') {
+          my ($content_value) = $node->content_list;
+          if ($content_value) {
+            push @{$results{$conf->{label}}}, $content_value;
+          } else {
+            carp "Content of $conf->{label} not exist.";
+          }
+        } else {
+          my ($attr, $attr_name) = split ':', $conf->{field};
+          if (defined $attr and defined $attr_name) {
+            my $extracted_value = $node->attr($attr_name);
+            push @{$results{$conf->{label}}}, $extracted_value;
+          } else {
+            carp "Failed parsing the field to extract - ".$conf->{field};
+          }
+        }
+      }  # foreach  @nodes
+    } else {
+      # scalar @nodes <= 1
+      my $node = $nodes[0];
       if ($conf->{field} eq 'content') {
         my ($content_value) = $node->content_list;
         if ($content_value) {
@@ -126,13 +147,13 @@ sub extract {
       } else {
         my ($attr, $attr_name) = split ':', $conf->{field};
         if (defined $attr and defined $attr_name) {
-          my $extracted_value = $_->attr($attr_name);
+          my $extracted_value = $node->attr($attr_name);
           $results{$conf->{label}} = $extracted_value;
         } else {
           carp "Failed parsing the field to extract - ".$conf->{field};
         }
       }
-    }  # foreach  @nodes
+    }
   }  # foreach config 
   $tree->delete;
   return \%results;
